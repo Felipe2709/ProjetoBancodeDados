@@ -41,7 +41,8 @@ def criar_tabela_clientes():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT,
             idade INTEGER,
-            email TEXT
+            email TEXT,
+            cpf TEXT
         )
     ''')
     conn.commit()
@@ -54,7 +55,8 @@ def criar_tabela_fornecedores():
         CREATE TABLE IF NOT EXISTS fornecedores (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT,
-            contato TEXT
+            contato TEXT,
+            cnpj TEXT
         )
     ''')
     conn.commit()
@@ -194,15 +196,15 @@ def popular_banco():
     conn = conectar()
     c = conn.cursor()
 
-    c.executemany('INSERT INTO clientes (nome, idade, email) VALUES (?, ?, ?)', [
-        ("Beatriz", 25, "beatriz@email.com"),
-        ("Lucas", 32, "lucas@email.com"),
-        ("Ana", 28, "ana@email.com"),
+    c.executemany('INSERT INTO clientes (nome, idade, email, cpf) VALUES (?, ?, ?, ?)', [
+        ("Beatriz", 25, "beatriz@email.com", "12345678900"),
+        ("Lucas", 32, "lucas@email.com", "09876543211"),
+        ("Ana", 28, "ana@email.com", "13457809122")
     ])
 
-    c.executemany('INSERT INTO fornecedores (nome, contato) VALUES (?, ?)', [
-        ("Força Suplementos", "contato@forca.com"),
-        ("GymPower", "suporte@gympower.com")
+    c.executemany('INSERT INTO fornecedores (nome, contato, cnpj) VALUES (?, ?, ?)', [
+        ("Força Suplementos", "contato@forca.com", "44455590987654"),
+        ("GymPower", "suporte@gympower.com", "2321456709922")
     ])
 
     c.executemany('INSERT INTO produtos (nome, preco, fornecedor_id) VALUES (?, ?, ?)', [
@@ -230,3 +232,10 @@ def popular_banco():
     conn.close()
     print("Tabelas populadas com sucesso.")
 
+def verificar_existente(tabela, campo, valor):
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute(f"SELECT COUNT(1) FROM {tabela} WHERE {campo} = ?", (valor,))
+    existe = cursor.fetchone()[0]
+    conn.close()
+    return existe > 0

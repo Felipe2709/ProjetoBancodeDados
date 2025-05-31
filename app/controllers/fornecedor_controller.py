@@ -1,13 +1,16 @@
 from app.models import crud
 
-def cadastrar_fornecedor(nome, contato):
-    # Verifica se já existe fornecedor com o mesmo nome e contato
-    fornecedores = crud.consultar_todos("fornecedores")
-    for fornecedor in fornecedores:
-        if fornecedor[1] == nome and fornecedor[2] == contato:  # índice 1 = nome, 2 = contato
-            return False  # Já existe
+def cadastrar_fornecedor(nome, contato, cnpj):
+    # ✅ Validação direta via CRUD para o CNPJ
+    if crud.verificar_existente("fornecedores", "cnpj", cnpj):
+        return False  # Já existe CNPJ
 
-    dados = {"nome": nome, "contato": contato}
+    dados = {
+        "nome": nome,
+        "contato": contato,
+        "cnpj": cnpj
+    }
+
     crud.inserir_dado("fornecedores", dados)
     return True
 

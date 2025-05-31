@@ -24,20 +24,35 @@ def interface(opcao):
         nome = st.text_input("Nome")
         idade = st.number_input("Idade", min_value=0)
         email = st.text_input("Email")
+        cpf = st.text_input("CPF")
         if st.button("Salvar"):
-            if cliente_controller.cadastrar_cliente(nome, idade, email):
+            if cliente_controller.cadastrar_cliente(nome, idade, email, cpf):
                 st.success("Cliente cadastrado com sucesso!")
             else:
                 st.warning("Cliente já existe!")
+
+
+
+
+
+
+            
+
+ 
 
     elif opcao == "Consultar Clientes":
         st.header("Consulta de Clientes")
         clientes = cliente_controller.consultar_clientes()
         if clientes:
-            df = pd.DataFrame(clientes, columns=["ID", "Nome", "Idade", "Email"])
+            df = pd.DataFrame(clientes, columns=["ID", "Nome", "Idade", "Email", "CPF"])
             st.dataframe(df)
         else:
             st.info("Nenhum cliente cadastrado.")
+
+
+        
+
+
 
     elif opcao == "Excluir Cliente":
         st.header("Exclusão de Cliente")
@@ -48,20 +63,23 @@ def interface(opcao):
 
     elif opcao == "Cadastrar Fornecedor":
         st.header("Cadastro de Fornecedor")
-        nome = st.text_input("Nome do Fornecedor")
+        nome = st.text_input("Nome")
         contato = st.text_input("Contato")
+        cnpj = st.text_input("CNPJ")
         if st.button("Salvar"):
-            if fornecedor_controller.cadastrar_fornecedor(nome, contato):
+            if fornecedor_controller.cadastrar_fornecedor(nome, contato, cnpj):
                 st.success("Fornecedor cadastrado com sucesso!")
             else:
                 st.warning("Fornecedor já existe!")
+
+
 
 
     elif opcao == "Consultar Fornecedores":
         st.header("Consulta de Fornecedores")
         fornecedores = fornecedor_controller.consultar_fornecedores()
         if fornecedores:
-            df = pd.DataFrame(fornecedores, columns=["ID", "Nome", "Contato"])
+            df = pd.DataFrame(fornecedores, columns=["ID", "Nome", "Contato", "CNPJ"])
             st.dataframe(df)
         else:
             st.info("Nenhum fornecedor cadastrado.")

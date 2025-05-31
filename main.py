@@ -3,8 +3,8 @@ from app.views.main_view import menu, interface, exibir_views_personalizadas
 from app.models import crud
 from app.models.crud import popular_banco
 def main():
-    st.set_page_config(page_title="Gestão de Vendas - Academia", layout="wide")
-    st.title("Sistema de Gestão de Vendas de Equipamentos")
+    st.set_page_config(page_title="Sistema de Gestão de Vendas de Equipamentos de Academia", layout="wide")
+    st.title("Sistema de Gestão de Vendas de Equipamentos de Academia")
 
     crud.criar_tabela_clientes()
     crud.criar_tabela_fornecedores()
