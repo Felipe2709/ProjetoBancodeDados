@@ -131,20 +131,6 @@ def consultar_pagamentos_por_cliente(cliente_id):
     return resultados
 
 
-def consultar_pagamentos_por_cliente(cliente_id):
-    conn = conectar()
-    c = conn.cursor()
-    c.execute('''
-        SELECT p.id, p.venda_id, p.valor_pago, p.data_pagamento, p.metodo_pagamento
-        FROM pagamentos p
-        JOIN vendas v ON p.venda_id = v.id
-        WHERE v.cliente_id = ?
-    ''', (cliente_id,))
-    resultados = c.fetchall()
-    conn.close()
-    return resultados
-
-
 def consultar_vendas_por_periodo(data_inicial, data_final):
     conn = conectar()
     c = conn.cursor()
