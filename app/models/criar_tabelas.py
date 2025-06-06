@@ -18,7 +18,6 @@ def criar_tabelas():
     ''')
         
 
-    # Tabela Fornecedores
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS fornecedores (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

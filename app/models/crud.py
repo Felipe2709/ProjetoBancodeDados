@@ -87,26 +87,13 @@ def criar_tabela_vendas():
             produto_id INTEGER,
             data TEXT,
             FOREIGN KEY (cliente_id) REFERENCES clientes(id),
-            FOREIGN KEY (produto_id) REFERENCES produtos(id)
+         FOREIGN KEY (produto_id) REFERENCES produtos(id)
         )
     ''')
     conn.commit()
     conn.close()
 
-    conn = conectar()
-    c = conn.cursor()
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS dependentes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nome TEXT,
-            idade INTEGER,
-            cliente_id INTEGER,
-            FOREIGN KEY (cliente_id) REFERENCES clientes(id)
-        )
-    ''')
-    conn.commit()
-    conn.close()
-
+    
 def criar_tabela_pagamentos():
     conn = conectar()
     c = conn.cursor()
@@ -144,16 +131,6 @@ def consultar_pagamentos_por_cliente(cliente_id):
     return resultados
 
 
-def consultar_vendas_por_periodo(data_inicial, data_final):
-    conn = conectar()
-    c = conn.cursor()
-    c.execute('''
-        SELECT * FROM vendas
-        WHERE DATE(data) BETWEEN DATE(?) AND DATE(?)
-    ''', (data_inicial, data_final))
-    resultados = c.fetchall()
-    conn.close()
-    return resultados
 def consultar_pagamentos_por_cliente(cliente_id):
     conn = conectar()
     c = conn.cursor()
