@@ -21,6 +21,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-if st.sidebar.button("Popular banco"):
-    popular_banco()
-    st.success("Banco populado com sucesso!")

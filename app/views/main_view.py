@@ -1,4 +1,5 @@
 import streamlit as st
+from app.models.crud import popular_banco
 import pandas as pd
 from app.controllers import (
     cliente_controller,
@@ -16,6 +17,10 @@ def menu():
         "Cadastrar Produto", "Consultar Produtos", "Excluir Produto",
         "Cadastrar Venda", "Consultar Vendas", "Excluir Venda"
     ])
+    if st.sidebar.button("Popular banco"):
+        popular_banco()
+        st.success("Banco populado com sucesso!")
+
     return opcao
 
 def interface(opcao):
@@ -140,6 +145,11 @@ def interface(opcao):
         if st.button("Excluir"):
             venda_controller.excluir_venda(id)
             st.success("Venda excluída com sucesso!")
+    elif opcao == "Popular Banco de Dados": 
+        st.header("Popular Banco de Dados")
+        if st.button("Popular"):
+            popular_banco()
+            st.success("Banco populado com sucesso!")
 
 def exibir_views_personalizadas():
     st.sidebar.markdown("## Opções Personalizadas")
@@ -197,9 +207,9 @@ def relatorio_vendas_view():
     if st.button("Gerar Relatório"):
         vendas = venda_controller.relatorio_vendas_detalhado(str(data_inicial), str(data_final))
         if vendas:
-            import pandas as pd
             df = pd.DataFrame(vendas, columns=["ID", "Cliente", "Produto", "Preço", "Data"])
             st.dataframe(df)
         else:
             st.info("Nenhuma venda encontrada no período.")
+
 
