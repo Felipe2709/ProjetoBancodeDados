@@ -131,16 +131,6 @@ def consultar_pagamentos_por_cliente(cliente_id):
     return resultados
 
 
-def consultar_vendas_por_periodo(data_inicial, data_final):
-    conn = conectar()
-    c = conn.cursor()
-    c.execute('''
-        SELECT * FROM vendas
-        WHERE DATE(data) BETWEEN DATE(?) AND DATE(?)
-    ''', (data_inicial, data_final))
-    resultados = c.fetchall()
-    conn.close()
-    return resultados
 def relatorio_vendas_detalhado(data_inicial, data_final):
     conn = conectar()
     c = conn.cursor()

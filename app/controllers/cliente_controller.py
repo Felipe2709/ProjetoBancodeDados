@@ -1,9 +1,9 @@
 from app.models import crud
 
 def cadastrar_cliente(nome, idade, email, cpf):
-    # ✅ Validação direta via CRUD
+    
     if crud.verificar_existente("clientes", "cpf", cpf) or crud.verificar_existente("clientes", "email", email):
-        return False  # Já existe CPF
+        return False  
 
     dados = {
         "nome": nome,
