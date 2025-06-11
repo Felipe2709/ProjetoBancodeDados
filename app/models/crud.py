@@ -24,6 +24,15 @@ def consultar_todos(tabela):
     conn.close()
     return dados
 
+def consultar_por_id(tabela, id):
+    conn = conectar()
+    c = conn.cursor()
+    c.execute(f"SELECT * FROM {tabela} WHERE id = ?", (id,))
+    dado = c.fetchone()
+    conn.close()
+    return dado
+
+
 def excluir_dado(tabela, id):
     conn = conectar()
     c = conn.cursor()
@@ -31,6 +40,15 @@ def excluir_dado(tabela, id):
     conn.commit()
     conn.close()
 
+def atualizar_dado(tabela, id, dados):
+    conn = conectar()
+    c = conn.cursor()
+    set_clause = ', '.join([f"{campo} = ?" for campo in dados.keys()])
+    valores = list(dados.values())
+    valores.append(id)
+    c.execute(f"UPDATE {tabela} SET {set_clause} WHERE id = ?", tuple(valores))
+    conn.commit()
+    conn.close()
 
 
 def criar_tabela_clientes():

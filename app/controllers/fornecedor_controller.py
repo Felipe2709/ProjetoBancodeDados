@@ -18,3 +18,15 @@ def consultar_fornecedores():
 
 def excluir_fornecedor(fornecedor_id):
     crud.excluir_dado("fornecedores", fornecedor_id)
+
+def consultar_fornecedor_por_id(fornecedor_id):
+    return crud.consultar_por_id("fornecedores", fornecedor_id)
+
+def editar_fornecedor(fornecedor_id, nome, contato, cnpj):
+    dados = {
+        "nome": nome,
+        "contato": contato,
+        "cnpj": cnpj
+    }
+    crud.atualizar_dado("fornecedores", fornecedor_id, dados)
+    return True
